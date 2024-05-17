@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Searched Books</title>
+    <link rel="stylesheet"  type="text/css" href="main.css" />
+  </head>
+  <body>
+    <h1>Searched Books</h1>
+     <ul>
+      <% for(let i = 0; i < availableBooks.length; i++) { %>
+          <li><%= availableBooks[i].name %> - <%= availableBooks[i].price %></li>
+          <% } %>
+  </ul>
+  </body>
+</html>

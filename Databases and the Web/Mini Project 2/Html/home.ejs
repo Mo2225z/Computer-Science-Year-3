@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link
+         rel="stylesheet"
+         href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+         />
+      <link rel="stylesheet" href="/style.css" />
+      <link
+         rel="stylesheet"
+         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+         />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <title>RateThisGame</title>
+   </head>
+   <!-- home page  -->
+   <body>
+      <% if(auth){ %>
+      <div
+         class="register_heading border-0 text-white rounded-0 alert alert-warning alert-dismissible fade show m-0"
+         role="alert"
+         >
+         <strong>Invalid Credentails!</strong>
+         <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+            ></button>
+      </div>
+      <% } %> 
+      <!--////// navbar /// -->
+      <nav class="navbar navbar-expand-lg py-3 navbar_wrapper">
+         <div class="container">
+            <a class="navbar-brand" href="/">RateThisGame</a>
+            <button
+               class="navbar-toggler"
+               type="button"
+               data-bs-toggle="collapse"
+               data-bs-target="#navbarSupportedContent"
+               aria-controls="navbarSupportedContent"
+               aria-expanded="false"
+               aria-label="Toggle navigation"
+               >
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                     <a class="nav-link" aria-current="page" href="/">Home Page</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" aria-current="page" href="/#games">Games</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" aria-current="page" href="/addGame"
+                        >Add Game</a
+                        >
+                  </li>
+               </ul>
+               <form class="d-flex align-items-center p-1 login_info" role="search">
+                  <% if (!user) { %>
+                  <a href="/register" class="register_btn"
+                     ><i class="far fa-edit" style="color: #eee"></i
+                     ><span>REGISTER</span>
+                  </a>
+                  <i>OR</i>
+                  <!-- <div class="login"> -->
+                  <i class="fas fa-lock"></i>
+                  <a class="register_btn login_btn cursor-pointer"
+                     ><span class="login_btn">SIGN IN</span>
+                  </a>
+                  <% } else { %>
+                  <a href="/logout" class="register_btn"
+                     ><span>Logout</span>
+                  </a>
+                  <% } %>
+                  <!-- </div> -->
+               </form>
+            </div>
+         </div>
+      </nav>
+      <div class="login_form col-4 mx-auto" id="loginFormContainer">
+         <div
+            class="login_heading mb-3 d-flex justify-content-between align-items-center"
+            >
+            <a href="/register.html" style="color: #ccc;">Login</a>
+            <i class="fas fa-times-circle"></i>
+         </div>
+         <form action="/login" class="register_form" method="post">
+            <p>
+               <span class="cust_input">
+               <input
+                  type="email"
+                  name="email"
+                  id="user_login"
+                  class="input login_input"
+                  size="20"
+                  tabindex="10"
+                  value=""
+                  placeholder="Email"
+                  />
+               </span>
+            </p>
+            <p>
+               <input
+                  type="password"
+                  name="password"
+                  id="user-password"
+                  class="input login_input"
+                  size="25"
+                  tabindex="30"
+                  placeholder="Password"
+                  />
+            </p>
+            <p class="checkbox-reg">
+               <label
+                  >
+                  <input type="checkbox" name="agree" id="signupAgree" />
+                  <span for="signupAgree"
+                     >
+                     Remember Me
+                     <!-- <a class="fw-lighter" href="#" target="_blank" style="color: #ff8800 !important;margin-left: 5rem;"
+                        >Lost your password?</a> -->
+                  </span
+                     >
+               </label
+                  >
+            </p>
+            <p class="W-100">
+               <button style="width: 100% !important;" name="wp-submit" type="submit" id="submit" class="signup W-100 fs-6">
+                  <!-- <i class="fa-sharp fa-solid fa-right-to-bracket"></i> -->
+                  GO
+               </button>
+            </p>
+            <input type="hidden" name="lwa" value="1" />
+         </form>
+      </div>
+      <div
+         class="container-fluid d-flex justify-content-center align-items-center home_container"
+         >
+         <div class="container">
+            <div class="inner_home">
+               <h1>
+                  Destination for
+                  <span>Gaming</span>
+                  Discover Review and Rate
+               </h1>
+               <h4>
+                  RateThisGame is designed for gaming enthusiasts who seek a platform to
+                  discover, rate, and review video games effortlessly.
+               </h4>
+               <div>
+                  <a href="register" class="home_btn">
+                  <i aria-hidden="true" class="fas fa-user-astronaut"></i>
+                  <span>register today</span>
+                  </a>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- all games page  -->
+      <div class="games_container container-fluid py-5" id="games">
+         <div class="container games_container">
+            <h1>Qick start - Choose your game</h1>
+            <div>
+               <div class="divider mx-auto"></div>
+            </div>
+            <p class="mb-5">
+               Invites you to swiftly explore a world of gaming options. RateThisGame
+               tailor your experience with ease, discovering thrilling adventures and
+               strategic challenges. Your personalized gaming journey begins here.
+            </p>
+            <div
+               class="container mt-5 d-flex gap-3 justify-content-center align-items-center flex-wrap"
+               >
+               <% data.forEach(game => { %>
+               <div class="card" style="width: 12rem">
+                  <div class="card-body">
+                     <h5 class="card-title mt-2"><%= game.title %></h5>
+                     <p class="text-white text-small mt-2"><%= game.description %></p>
+                     <div class="d-flex align-items-center gap-1">
+                        <i style="color: #ff9c00 !important" class="fa-solid fa-star"></i>
+                        <span class="text-light">4.5</span>
+                        <!-- <i
+                           class="fa-regular fa-star ms-3"
+                           type="button"
+                           data-bs-toggle="modal"
+                           data-bs-target="#exampleModal"
+                           style="color: #ff9c00 !important"
+                           ></i> -->
+                     </div>
+                     <div class="game_btn mt-4">
+                        <a href="viewGame/<%= game.id %>">View Ratings</a>
+                     </div>
+                  </div>
+               </div>
+               <% }); %>
+            </div>
+         </div>
+      </div>
+      <!-- Footer  -->
+      <div class="container-fluid py-5 footer ">
+         <div class="container d-flex justify-content-between align-items-center">
+            <span>RateThisGame</span>
+            <p class="mb-0">© Copyright 2023. Powered by <span  class="fw-bold fs-6">RateThisGame</span> </p>
+            <div class="foot_icons d-flex align-items-center gap-2">
+               <div>
+                  <i class="fa-brands fa-facebook-f"></i>
+               </div>
+               <div>
+                  <i class="fa-brands fa-twitter"></i>
+               </div>
+               <div>
+                  <i  class="fa-brands fa-linkedin-in"></i>
+               </div>
+               <div>
+                  <i class="fa-brands fa-instagram"></i>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" integrity="sha512-GWzVrcGlo0TxTRvz9ttioyYJ+Wwk9Ck0G81D+eO63BaqHaJ3YZX9wuqjwgfcV/MrB2PhaVX9DkYVhbFpStnqpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="/index.js"></script>
+   </body>
+</html>
